@@ -24,6 +24,17 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowBlazorClient",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7160") // порт клиента
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 builder.Services.AddShopWebsiteServices();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -75,6 +86,7 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
+app.UseCors("AllowBlazorClient");
 app.MapFallbackToFile("index.html");
 
 app.Run();
