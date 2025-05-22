@@ -1,0 +1,33 @@
+@page "/calendar"
+
+<h3>Calendar</h3>
+
+<p>Выберите дату для резервации:</p>
+
+<InputDate @bind-Value="selectedDate" class="form-control" />
+
+@if (selectedDate != null)
+{
+    <div class="mt-2">
+        <b>Вы выбрали:</b> @selectedDate.Value.ToShortDateString()
+        <button class="btn btn-primary ml-2" @onclick="ReserveDate">Зарезервировать</button>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(reservationMessage))
+{
+    <div class="alert alert-success mt-2">@reservationMessage</div>
+}
+
+@code {
+    private DateTime? selectedDate;
+    private string reservationMessage;
+
+    private void ReserveDate()
+    {
+        if (selectedDate != null)
+        {
+            reservationMessage = $"Дата {selectedDate.Value.ToShortDateString()} успешно зарезервирована!";
+        }
+    }
+}
