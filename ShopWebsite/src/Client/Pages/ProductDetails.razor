@@ -79,13 +79,23 @@ else
     }
 
     private async Task AddToCart()
+{
+    var productVariant = GetSelectedVariant();
+    if (productVariant == null)
     {
-        var productVariant = GetSelectedVariant();
-        var cartItem = new CartItem
-        {
-            ProductId = productVariant.ProductId,
-            ProductTypeId = productVariant.ProductTypeId
-        };
+        message = "Выберите тип продукта";
+        StateHasChanged();
+        return;
+    }
+
+    var cartItem = new CartItem
+    {
+        ProductId = productVariant.ProductId,
+        ProductTypeId = productVariant.ProductTypeId
+    };
+
+    await _cartService.AddToCart(cartItem);
+}
 
         await _cartService.AddToCart(cartItem);
     }
