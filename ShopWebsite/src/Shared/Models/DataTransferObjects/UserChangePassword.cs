@@ -9,25 +9,5 @@ namespace ShopWebsite.Shared.Models.DataTransferObjects
 
         [Compare("Password", ErrorMessage = "The passwords do not match")]
         public string ConfirmPassword { get; set; } = string.Empty;
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
-    if (env.IsDevelopment())
-    {
-        app.UseDeveloperExceptionPage(); // Включить отладочную страницу
-    }
-    else
-    {
-        app.UseExceptionHandler("/Error");
-    }
-
-    app.UseStaticFiles();
-    app.UseRouting();
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapRazorPages();
-    });
-}
-
     }
 }
