@@ -1,7 +1,6 @@
-﻿@page "/product/{id:int}"
+@page "/product/{id:int}"
 @inject ICartService _cartService
 @inject IProductService _productService
-@inject ICartService _cartService
 
 @if(product == null)
 {
@@ -80,23 +79,20 @@ else
     }
 
     private async Task AddToCart()
-{
-    var productVariant = GetSelectedVariant();
-    if (productVariant == null)
     {
-        message = "Выберите тип продукта";
-        StateHasChanged();
-        return;
-    }
+        var productVariant = GetSelectedVariant();
+        if (productVariant == null)
+        {
+            message = "Выберите тип продукта";
+            StateHasChanged();
+            return;
+        }
 
-    var cartItem = new CartItem
-    {
-        ProductId = productVariant.ProductId,
-        ProductTypeId = productVariant.ProductTypeId
-    };
-
-    await _cartService.AddToCart(cartItem);
-}
+        var cartItem = new CartItem
+        {
+            ProductId = productVariant.ProductId,
+            ProductTypeId = productVariant.ProductTypeId
+        };
 
         await _cartService.AddToCart(cartItem);
     }
